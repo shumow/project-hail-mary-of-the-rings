@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Geodesics of Distraction</title>
+    <style>
+      body {
+        margin: 0;
+        background: #0b0b10;
+        color: #cfd2dc;
+        font: 14px/1.5 system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+      }
+      h1 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 4px 0 0;
+      }
+      .frames {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .frame {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: center;
+      }
+      .frame span {
+        font-size: 12px;
+        color: #8a8fa3;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      canvas {
+        border: 1px solid #22222e;
+        background: #000;
+        image-rendering: pixelated;
+      }
+      .hint {
+        color: #6b7081;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Geodesics of Distraction</h1>
+    <p class="hint">
+      Arrow keys to walk. Same input steers both frames. Press
+      <kbd>`</kbd> for the secret.
+    </p>
+    <div class="frames">
+      <div class="frame">
+        <span>The Town</span>
+        <canvas id="town" width="480" height="480"></canvas>
+      </div>
+      <div class="frame">
+        <span>Space-Time</span>
+        <canvas id="spacetime" width="480" height="480"></canvas>
+      </div>
+      <div class="frame" id="egg-wrap" style="display: none">
+        <span>— ? —</span>
+        <canvas id="egg" width="480" height="480"></canvas>
+      </div>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
