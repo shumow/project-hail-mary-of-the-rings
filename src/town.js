@@ -1,7 +1,7 @@
 // town.js — View One: the flat town.
 // A kid who missed the bus walks to school, bent off course by distractions.
 
-import { world } from "./world.js";
+import { world, routes } from "./world.js";
 
 export function drawTown(ctx) {
   const c = world.cell;
@@ -27,6 +27,19 @@ export function drawTown(ctx) {
     ctx.lineTo(W, j * c);
     ctx.stroke();
   }
+
+  // the sensible way to school: the same free-fall routes, as chalk lines
+  ctx.setLineDash([6, 6]);
+  ctx.strokeStyle = "rgba(255,255,255,0.7)";
+  ctx.lineWidth = 2;
+  for (const r of routes) {
+    ctx.beginPath();
+    r.forEach((q, i) =>
+      i ? ctx.lineTo(q.x * c, q.y * c) : ctx.moveTo(q.x * c, q.y * c),
+    );
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
 
   // distractions
   for (const a of world.attractors) {

@@ -22,8 +22,9 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-**Controls:** arrow keys to move. Press `` ` `` (backtick) to toggle the
-secret frame.
+**Controls:** arrow keys to move. In the space-time frame, **click-drag to
+rotate** the sheet and **scroll to zoom**. Press `` ` `` (backtick) to toggle
+the secret frame.
 
 ## How it's put together
 
@@ -37,8 +38,12 @@ Every view is a read-only consumer of it.
   get caught. `captureRadius()` computes it.
 - **The town** ([`src/town.js`](src/town.js)) — flat grid, the kid as a dot.
 - **The space-time** ([`src/spacetime.js`](src/spacetime.js)) — the same model
-  as a hand-projected wireframe rubber sheet; sheet height is the Newtonian
-  potential.
+  as a true 3D rubber sheet with perspective; sheet height is the Newtonian
+  potential, wells dip as real funnels. Drag to rotate, scroll to zoom.
+- **Hyperspace routes** — free-fall (geodesic) paths through the same field,
+  computed in `world.js`. They show up in all three frames: glowing on the
+  sheet (with an ON ROUTE / off-route readout), as dashed chalk in the town,
+  and as bare curves in the secret frame. It's the same curve every time.
 - **The Easter egg** ([`src/abstract.js`](src/abstract.js)) — the raw force
   field, the capture radii, and the dot. The game confessing what it is.
 
@@ -52,9 +57,10 @@ between `accel` (your agency) and the wells' `strength` (the pull).
 
 ## Status
 
-Early. Physics and all three renderers are in. Not yet done: the hyperspace
-routes to trace in the space-time view, real distraction sprites, sound, and
-a reason to reach school.
+Playable sketch. Physics, all three renderers, the 3D draggable sheet, and
+the hyperspace routes are in. Not yet done: tuned route launch velocities
+(the current ones are rough), real distraction sprites, sound, and a reason
+to reach school.
 
 ## License
 

@@ -96,3 +96,36 @@ export function potential(x, y) {
   }
   return p;
 }
+
+// --- hyperspace routes: free-fall paths through the same field ---
+// A route is the path an unpowered ship takes: launched with a velocity and
+// left to fall through the gravity field. That makes it a geodesic of the
+// rubber sheet. The game challenge is to fly along it under power.
+export function integrateRoute(start, v0, steps = 600, dt = 1 / 60) {
+  const p = { ...start },
+    v = { ...v0 },
+    pts = [{ ...p }];
+  for (let i = 0; i < steps; i++) {
+    const g = gravity(p.x, p.y);
+    v.x += g.x * dt;
+    v.y += g.y * dt; // no input, no drag: pure fall
+    p.x += v.x * dt;
+    p.y += v.y * dt;
+    if (p.x < 0 || p.y < 0 || p.x > world.cols || p.y > world.rows) break;
+    pts.push({ ...p });
+  }
+  return pts;
+}
+
+export const routes = [
+  integrateRoute({ x: 1.5, y: 1.5 }, { x: 2.6, y: 1.4 }),
+  integrateRoute({ x: 1.0, y: 6.0 }, { x: 3.0, y: -0.4 }),
+];
+
+// how far the ship is from the nearest point on any route (for scoring)
+export function routeDistance(x, y) {
+  let best = Infinity;
+  for (const r of routes)
+    for (const q of r) best = Math.min(best, Math.hypot(q.x - x, q.y - y));
+  return best;
+}

@@ -2,7 +2,7 @@
 // The game confessing what it actually is: just the graph, the raw force
 // field, and a dot. Toggle with the `~` key (see main.js).
 
-import { world, gravity, captureRadius } from "./world.js";
+import { world, gravity, captureRadius, routes } from "./world.js";
 
 export function drawAbstract(ctx) {
   const c = world.cell;
@@ -63,6 +63,17 @@ export function drawAbstract(ctx) {
     ctx.beginPath();
     ctx.arc(a.x * c, a.y * c, 3, 0, 2 * Math.PI);
     ctx.fill();
+  }
+
+  // the routes, stripped bare: just the curve
+  ctx.strokeStyle = "#e8e8f0";
+  ctx.lineWidth = 1;
+  for (const r of routes) {
+    ctx.beginPath();
+    r.forEach((q, i) =>
+      i ? ctx.lineTo(q.x * c, q.y * c) : ctx.moveTo(q.x * c, q.y * c),
+    );
+    ctx.stroke();
   }
 
   // the dot — all three views are this same point
